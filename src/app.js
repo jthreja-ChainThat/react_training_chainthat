@@ -2,6 +2,7 @@ import React, { PureComponent, createRef } from "react";
 import TodoList from "./todoList";
 import TodoForm from "./todoForm";
 import TodoFilter from "./todoFilter";
+import axiosInstance from "./utils/axiosInstance";
 import "./todo.css";
 
 class App extends PureComponent {
@@ -20,11 +21,11 @@ class App extends PureComponent {
   fetchData = async () => {
     try {
       this.setState({ status: "load_data" });
-      const res = await fetch("http://localhost:3000/todoList");
-      const json = await res.json();
+      const res = await axiosInstance.get("todoList");
       this.setState({ status: "load_data_request" });
-      this.setState({ todoList: json, loading: false, status: "idle" });
+      this.setState({ todoList: res.data, loading: false, status: "idle" });
     } catch (error) {
+      console.log(error.message);
       this.setState({ status: "load_data_error" });
     }
   };
@@ -34,24 +35,15 @@ class App extends PureComponent {
       event.preventDefault();
 
       this.setState({ status: "add_data" });
-      const res = await fetch("http://localhost:3000/todoList", {
-        method: "POST",
-        body: JSON.stringify({
-          text: this.inputRef.current.value,
-          isDone: false,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+      const res = await axiosInstance.post("todoList", {
+        text: this.inputRef.current.value,
+        isDone: false,
       });
-
-      const json = await res.json();
 
       this.setState(
         ({ todoList, todoText }) => {
           return {
-            todoList: [...todoList, json],
+            todoList: [...todoList, res.data],
             filter: "all",
             status: "idle",
           };
@@ -68,23 +60,17 @@ class App extends PureComponent {
   toggleTodo = async (todo) => {
     try {
       this.setState({ status: "update_data" });
-      const res = await fetch(`http://localhost:3000/todoList/${todo.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...todo, isDone: !todo.isDone }),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-
-      const json = await res.json();
+      const res = await axiosInstance.put(
+        `todoList/${todo.id}`,
+        { ...todo, isDone: !todo.isDone }
+      );
 
       this.setState(({ todoList }) => {
         const index = todoList.findIndex((item) => item.id === todo.id);
         return {
           todoList: [
             ...todoList.slice(0, index),
-            json,
+            res.data,
             ...todoList.slice(index + 1),
           ],
           status: "idle",
@@ -98,9 +84,7 @@ class App extends PureComponent {
   deleteTodo = async (todo) => {
     try {
       this.setState({ status: "delete_data" });
-      await fetch(`http://localhost:3000/todoList/${todo.id}`, {
-        method: "DELETE",
-      });
+      await axiosInstance.delete(`todoList/${todo.id}`);
 
       this.setState(({ todoList }) => {
         const index = todoList.findIndex((item) => item.id === todo.id);
