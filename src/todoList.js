@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import React, { memo, forwardRef } from "react";
 
-const TodoList = ({ todoList, toggleTodo, deleteTodo, status }) => {
+const TodoList = forwardRef(({ todoList, toggleTodo, deleteTodo, status }, ref) => {
   console.log("TodoList");
   console.log(status);
 
@@ -9,15 +9,18 @@ const TodoList = ({ todoList, toggleTodo, deleteTodo, status }) => {
       {todoList.map((todo) => {
         return (
           <div key={todo.id}>
-            <div className="todo-list-wrapper">
+            <div className="todo-list-wrapper" >
               <input
                 type="checkbox"
                 name="isDone"
-                id="isDone"
+                id={`is_done_${todo.id}`}
                 checked={todo.isDone}
                 disabled={status.some(
                   (x) => x.name === "update_data" && x.statusId === todo.id
                 )}
+                ref={el => {
+                  ref.push({ id: todo.id, ref: el })
+                }}
                 onChange={() => toggleTodo(todo)}
               />
               <span
@@ -48,6 +51,6 @@ const TodoList = ({ todoList, toggleTodo, deleteTodo, status }) => {
       })}
     </div>
   );
-};
+});
 
 export default memo(TodoList);

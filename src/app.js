@@ -15,6 +15,8 @@ class App extends PureComponent {
 
   inputRef = createRef();
 
+  listRef = [];
+
   componentDidMount() {
     this.fetchData();
   }
@@ -93,6 +95,12 @@ class App extends PureComponent {
   toggleTodo = async (todo) => {
     const uniqueId = uuidv4();
     try {
+
+      // this.listRef.find(x => x.id === todo.id).ref.disabled = true;
+      // // if(this.listRef.current[todo.id]) {
+      // //   this.listRef.current[todo.id].disabled = true
+      // // }
+      // // document.getElementById(`is_done_${todo.id}`).disabled = true
       this.setState(({ status }) => {
         let updatedStatus = status;
 
@@ -144,6 +152,9 @@ class App extends PureComponent {
         return { status: updatedStatusList };
       });
     }
+    //  finally {
+    //   this.listRef.find(x => x.id === todo.id).ref.disabled = false;
+    // }
   };
 
   deleteTodo = async (todo) => {
@@ -216,6 +227,7 @@ class App extends PureComponent {
           todoList={filteredTodo}
           toggleTodo={this.toggleTodo}
           deleteTodo={this.deleteTodo}
+          ref={this.listRef}
         />
         <TodoFilter
           filter={filter}
