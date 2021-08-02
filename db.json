@@ -65,5 +65,15 @@
       "isDone": false,
       "id": 16
     }
+  ],
+  "weatherData": [
+    {
+      "place": "Delhi",
+      "temperature": "29"
+    },
+    {
+      "place": "Bangalore",
+      "temperature": "24"
+    }
   ]
 }
