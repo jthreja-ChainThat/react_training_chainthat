@@ -1,9 +1,8 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
+import CustomRoutes from "../../components/CustomRoutes";
 
-const Auth = () => {
+const Auth = ({ routes }) => {
   return (
     <div>
       <nav>
@@ -16,10 +15,8 @@ const Auth = () => {
           </li>
         </ul>
       </nav>
-      <Switch>
-        <Route path="/auth" exact component={Login} />
-        <Route path="/auth/register" component={Register} />
-      </Switch>
+
+      <CustomRoutes routes={routes} />
     </div>
   );
 };

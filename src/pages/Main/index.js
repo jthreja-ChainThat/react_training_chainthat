@@ -1,21 +1,18 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import Home from "./Home";
+import CustomRoutes from "../../components/CustomRoutes";
 
-const Main = () => {
+const Main = ({ routes }) => {
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </li>
         </ul>
       </nav>
-      <Switch>
-        <Route path="/" exact component={Home} />
-      </Switch>
-
+      <CustomRoutes routes={routes} />
     </div>
   );
 };

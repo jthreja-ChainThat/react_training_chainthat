@@ -10,5 +10,31 @@
       "isDone": false,
       "id": 2
     }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "productName": "Iphone 11",
+      "manufacturer": "apple",
+      "price": 2500,
+      "currency": "us-dollar",
+      "quantity": 3
+    },
+    {
+      "currency": "us-dollar",
+      "productName": "Note10",
+      "manufacturer": "samsung",
+      "price": 3000,
+      "quantity": "1",
+      "id": 2
+    },
+    {
+      "currency": "us-dollar",
+      "productName": "iphone 12",
+      "manufacturer": "apple",
+      "price": 4000,
+      "quantity": "4",
+      "id": 3
+    }
   ]
 }

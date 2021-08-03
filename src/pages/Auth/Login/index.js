@@ -1,24 +1,43 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import "./login.css";
+import { localeContext } from "../../../context/localeContext";
+import { fields, initialValues } from "./fields";
+import CustomForm from "../../../components/CustomForm";
 
 const Login = (props) => {
-  const redirect = (path) => {
-    props.history.push(path)
+  const [date, setDate] = useState();
+
+  const { Consumer } = localeContext;
+
+  console.log("render");
+
+  const onSubmit = (values) => {
+    console.log(values);
   };
 
-  const replace = (path) => {
-    props.history.replace(path)
-  }
-
   return (
-    <div>
-      <h1>Login Page</h1>
-      <button type="button" onClick={() => redirect('/register')}>
-        Register
-      </button>
+    <div id="login-component">
+      <Consumer>
+        {({ state, setstate }) => (
+          <div>
+            <span>{state}</span>
+            <button type="button" onClick={() => setstate("fr")}>
+              Change Locale
+            </button>
+          </div>
+        )}
+      </Consumer>
 
-      <button type="button" onClick={() => replace('/home')}>
-        Go To Home
-      </button>
+      <h1>Login Page</h1>
+      <CustomForm
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        fields={fields}
+        buttonProps={{
+          fullWidth: true,
+          children: "Login",
+        }}
+      />
     </div>
   );
 };

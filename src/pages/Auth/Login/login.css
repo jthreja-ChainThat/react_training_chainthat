@@ -1,0 +1,22 @@
+
+#login-component h1 {
+    text-align: center;
+}
+
+#login-component form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-component form div {
+    max-width: 786px;
+}
+
+#login-component form .MuiTextField-root {
+    margin: 0.5rem 0;
+}
+
+#login-component form .MuiButton-root {
+    margin: 0.5rem 0;
+}
