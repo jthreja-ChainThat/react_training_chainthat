@@ -1,0 +1,22 @@
+
+#add-product-component h1 {
+    text-align: center;
+}
+
+#add-product-component form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add-product-component form div {
+    max-width: 786px;
+}
+
+#add-product-component form .MuiTextField-root {
+    margin: 0.5rem 0;
+}
+
+#add-product-component form .MuiButton-root {
+    margin: 0.5rem 0;
+}
